@@ -13,6 +13,7 @@ def dashboard(request):
         'cars': all_car
     }        
     return render(request,'dashboardapp/dashboard.html',context)
+
 @login_required
 def addcar(request):
     if request.method == 'POST':
@@ -25,6 +26,7 @@ def addcar(request):
             return redirect('dashboard')
     return render(request,'dashboardapp/caradd.html')
 def home(request):
+    
     return render(request,'rentcarapp/home.html')
 @login_required
 def deletecar(request, id):
