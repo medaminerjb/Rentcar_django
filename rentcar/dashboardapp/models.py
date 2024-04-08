@@ -34,7 +34,7 @@ class Client(models.Model):
     name = models.CharField(max_length=127,null=False)
     email = models.EmailField(null=True)
     numerotel = models.IntegerField(max_length=8,null=True)
-    user= models.ForeignKey(User)
+    user= models.ForeignKey(User,blank=True,on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.name)
