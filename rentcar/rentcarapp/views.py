@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext as _
 from django.utils.translation import get_language,activate,gettext
+from dashboardapp.models import Voiture
 
 
 
@@ -35,11 +36,12 @@ def loginView(request):
     return render(request,'rentcarapp/login.html',{})
 @login_required
 def dashboard(request):
-    return render(request,'dashboardapp/dashboard.html')
+    voitures = Voiture.objects.filter()
+    return render(request,'dashboardapp/dashboard.html',{'voitures':voitures})
 @login_required
 def LogoutView(request):
     logout(request)
     return redirect('login')
 def home(request):
-     
-    return render(request,'rentcarapp/home.html')
+    voitures = Voiture.objects.filter()
+    return render(request,'rentcarapp/home.html',{'voitures':voitures})
