@@ -72,7 +72,7 @@ class sous_traitance(models.Model):
     date_paiment = models.DateField(blank=True,null=True)
     date_debut = models.DateField(blank=True,null=True)
     date_fin = models.DateField(blank=True,null=True)
-    voiture = models.ForeignKey(voiture,blank=True)
+    voiture = models.ForeignKey(voiture,blank=True,on_delete=models.CASCADE)
     agent = models.ForeignKey(agent,blank=True,on_delete=models.CASCADE)
 
     def __str__(self) -> str:
