@@ -23,3 +23,5 @@ jobs:
         run: |
           cd rentcar 
           python manage.py test
+      - name: db migration 
+          python manage.py migrate 
