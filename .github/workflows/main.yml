@@ -21,4 +21,5 @@ jobs:
 
       - name: Run tests
         run: |
+          cd rentcar 
           python manage.py test
