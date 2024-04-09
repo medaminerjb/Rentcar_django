@@ -45,3 +45,6 @@ def LogoutView(request):
 def home(request):
     voitures = Voiture.objects.filter()
     return render(request,'rentcarapp/home.html',{'voitures':voitures})
+def voitures_listing(request):
+    voitures = Voiture.objects.filter()
+    return render(request,'rentcarapp/voitures.html',{'voitures':voitures})
