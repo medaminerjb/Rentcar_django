@@ -8,7 +8,9 @@ from django.utils.translation import get_language,activate,gettext
 from dashboardapp.models import Voiture
 
 
+def signupView(request):
 
+    return render(request,'rentcarapp/signup.html',{})
 
 def loginView(request):
     if request.user.is_authenticated:

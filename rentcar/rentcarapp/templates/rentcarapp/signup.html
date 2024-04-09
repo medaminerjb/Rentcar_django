@@ -1,22 +1,22 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Car Lease</title>
-		<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" >
-		<link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" >
-		<link href="{% static 'css/global.css' %}" rel="stylesheet">
-		<link href="{% static 'css/index.css' %}" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-		<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-	
-	</head>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Car Lease</title>
+	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" >
+	<link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" >
+	<link href="{% static 'css/global.css' %}" rel="stylesheet">
+	<link href="{% static 'css/index.css' %}" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+	<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+</head>
 <body>
 
-<div class="main_o clearfix position-relative">
+<div class="main clearfix position-relative">
  <div class="main_1 clearfix position-absolute top-0 w-100">
    <section id="header">
 <nav class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
@@ -28,7 +28,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mb-0 ">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a>
+          <a class="nav-link active" aria-current="page" href="index.html">Home</a>
         </li>
 		<li class="nav-item">
           <a class="nav-link" href="about.html">About </a>
@@ -49,7 +49,7 @@
           <a class="nav-link" href="team.html">Team</a>
         </li>
 		<li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Pages
           </a>
           <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
@@ -76,13 +76,13 @@
 </section>
  </div>
  <div class="main_2 clearfix">
- <section id="center" class="center_login">
+ <section id="center" class="center_reg">
    <div class="center_om clearfix">
      <div class="container-xl">
   <div class="row center_o1">
    <div class="col-md-12">
-      <h2 class="text-white">Login</h2>
-	  <h6 class="mb-0 mt-3 fw-normal col_oran"><a class="text-light" href="#">Home</a> <span class="mx-2 col_light">/</span> Login</h6>
+      <h2 class="text-white">Register</h2>
+	  <h6 class="mb-0 mt-3 fw-normal col_oran"><a class="text-light" href="#">Home</a> <span class="mx-2 col_light">/</span> Register</h6>
    </div>
   </div>
  </div>
@@ -97,8 +97,10 @@
   <div class="row">
    <div class="col-md-12">
     <div class="login_1 p-4 m-auto">
-	 <h3 class="col_oran">Login</h3>
-	 <p>login with your Car Lease account</p>
+	 <h3 class="col_oran">Register</h3>
+	 <p>create your Car Lease account</p>
+	 <h6 class="mt-4">Full Name</h6>
+	 <input type="email" class="form-control" placeholder="Your Name">
 	 <h6 class="mt-4">Email Address</h6>
 	 <input type="email" class="form-control" placeholder="Your Email">
 	 <h6 class="mt-4">Password</h6>
@@ -107,13 +109,12 @@
 <div class="form-check">
 <input class="form-check-input" type="checkbox" value="" id="remember">
 <label class="form-check-label" for="remember">
-Remember Me
+I agree with the <a class="col_oran" href="#">Terms Of Service</a>
 </label>
 </div>
-<a class="col_oran" href="#">Forgot Password?</a>
 </div>
-    <h6 class="mt-4 mb-0"><a class="button" href="#">Login  <i class="fa fa-sign-in ms-1"></i></a></h6>
-	<p class="mt-4 mb-0">Don't have an account? <a class="col_oran" href="register.html">Register</a></p>
+    <h6 class="mt-4 mb-0"><a class="button" href="#">Register  <i class="fa fa-location-arrow ms-1"></i></a></h6>
+	<p class="mt-4 mb-0">Already have an account? <a class="col_oran" href="login.html">Login</a></p>
 	</div>
    </div>
   </div>  

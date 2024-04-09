@@ -54,8 +54,8 @@
             Pages
           </a>
           <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="login.html"> Login</a></li>
-            <li><a class="dropdown-item border-0" href="register.html"> Register</a></li>
+            <li><a class="dropdown-item" href="{% url 'login' %}"> Login</a></li>
+            <li><a class="dropdown-item border-0" href="{% url 'signup' %}"> Register</a></li>
           </ul>
         </li>
 		<li class="nav-item">
@@ -64,10 +64,10 @@
       </ul>
 	  <ul class="navbar-nav mb-0 ms-auto">
 		<li class="nav-item">
-          <a class="nav-link" href="login.html">Sign In</a>
+          <a class="nav-link" href="{% url 'login' %}">Sign In</a>
         </li>
 		<li class="nav-item">
-          <a class="nav-link button_2 ms-2 me-2" href="register.html">Register <i class="fa fa-check-circle ms-1"></i></a>
+          <a class="nav-link button_2 ms-2 me-2" href="{% url 'signup' %}">Register <i class="fa fa-check-circle ms-1"></i></a>
         </li>
 		
       </ul>
