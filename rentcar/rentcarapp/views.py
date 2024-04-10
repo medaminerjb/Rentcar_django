@@ -68,6 +68,9 @@ def voitures_listing(request):
 
     return render(request, 'rentcarapp/voitures.html', {'modules': voitures})
 ########search form ########
+from django.db.models import Q
+from datetime import date
+
 def search_listing(request):
 
     if request.method == 'POST':
@@ -77,12 +80,30 @@ def search_listing(request):
             datesor = request.POST.get('')
             dateret = request.POST.get('')
 
-            res = reservation.objects.filter(voiture_modulevoiture__in=modulev)
-            for i in res:
-                if ((i.date_debut < datesor and i.date_fin > dateret ) 
-                    or (i.date_debut > datesor ) 
-                    or (i.date_fin < dateret)):
-                    pass       
+
+
+# Get all cars
+        all_cars = Voiture.objects.all()
+
+        available_cars = []
+
+        for car in all_cars:
+    # Query reservations for this car that overlap with the given date range
+            reservations_overlap = reservation.objects.filter(
+
+                Q(start_date__lte=datesor, end_date__gte=datesor) |
+                Q(start_date__lte=dateret, end_date__gte=dateret) |
+                Q(start_date__gte=datesor, end_date__lte=dateret)
+                )
+
+    # If there are no overlapping reservations, add the car to available_cars
+        if not reservations_overlap.exists():
+            available_cars.append(car)
+            print("Available cars:")
+        for car in available_cars:
+            print(f"{car.module} {car.model}")
+            return render()
+ 
 
 
 
