@@ -23,4 +23,7 @@ jobs:
         run: |
           cd rentcar 
           python manage.py test
+      - name: flake test
+        run: |
+          flake8 rentcar/rentcarapp/views.py
 
