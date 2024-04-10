@@ -67,17 +67,19 @@ def voitures_listing(request):
                 i.price = t.price
 
     return render(request, 'rentcarapp/voitures.html', {'modules': voitures})
+########search form ########
 def search_listing(request):
 
     if request.method == 'POST':
         if request.POST.get == 'voituresearch':
+
             modulev = request.POST.get('')
             datesor = request.POST.get('')
             dateret = request.POST.get('')
 
             res = reservation.objects.filter(voiture_modulevoiture__in=modulev)
             for i in res:
-                if not ((i.date_debut < datesor and i.date_fin > dateret ) 
+                if ((i.date_debut < datesor and i.date_fin > dateret ) 
                     or (i.date_debut > datesor ) 
                     or (i.date_fin < dateret)):
                     pass       
