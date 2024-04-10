@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext as _
 from django.utils.translation import get_language,activate,gettext
-from dashboardapp.models import Voiture,ModuleVoiture,reservation
+from dashboardapp.models import Voiture,ModuleVoiture,reservation,Prices
 from django.http import JsonResponse
 import json
 from django.db.models import Count
@@ -52,7 +52,35 @@ def LogoutView(request):
 def home(request):
     modules = ModuleVoiture.objects.filter()
     return render(request,'rentcarapp/home.html',{'modules':modules})
+
 def voitures_listing(request):
     modules = Voiture.objects.values('modulevoiture').annotate(module_count=Count('modulevoiture'))
 
-    return render(request,'rentcarapp/voitures.html',{'modules':modules})
+    voitures = ModuleVoiture.objects.filter()
+    prices = Prices.objects.filter()
+    for i in voitures :
+        for j in modules :
+            if i.id_module == j['modulevoiture']:
+                i.module_count = j['module_count']
+        for t in prices :
+            if t.module == i :
+                i.price = t.price
+
+    return render(request, 'rentcarapp/voitures.html', {'modules': voitures})
+def search_listing(request):
+
+    if request.method == 'POST':
+        if request.POST.get == 'voituresearch':
+            modulev = request.POST.get('')
+            datesor = request.POST.get('')
+            dateret = request.POST.get('')
+
+            res = reservation.objects.filter(voiture_modulevoiture__in=modulev)
+            for i in res:
+                if not ((i.date_debut < datesor and i.date_fin > dateret ) 
+                    or (i.date_debut > datesor ) 
+                    or (i.date_fin < dateret)):
+                    pass       
+
+
+

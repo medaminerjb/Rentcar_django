@@ -10,6 +10,7 @@ class marquevehicule(models.Model):
 
     def __str__(self) -> str:
         return str(self.name)
+    
 class ModuleVoiture(models.Model):
     id_module = models.AutoField(primary_key=True)
     name_module = models.CharField(max_length=255,null=False)
@@ -18,6 +19,7 @@ class ModuleVoiture(models.Model):
     nbr_place = models.IntegerField(null=True)
     reservoir = models.IntegerField(null=True)
     prix_neuf = models.IntegerField(null=True)
+    image = models.CharField(max_length=400, blank=True, null=True)
     marque = models.ForeignKey(marquevehicule,blank=True,null=True,on_delete=models.CASCADE)
     etat = models.CharField(max_length=5,null=True,default='neuf')
     desponiblte = models.CharField(max_length=55,null=True)
@@ -38,6 +40,14 @@ class Voiture(models.Model):
 
     def __str__(self) -> str:
         return self.numeroMat
+class Prices(models.Model):
+    id = models.AutoField(primary_key=True)
+    price = models.IntegerField(null=True)
+    module = models.OneToOneField(ModuleVoiture,blank=True,on_delete=models.CASCADE,unique=True)
+
+    def __int__(self)->int:
+        return self.price
+
 class Client(models.Model):
     id_client = models.AutoField(primary_key=True)
     name = models.CharField(max_length=127,null=False)

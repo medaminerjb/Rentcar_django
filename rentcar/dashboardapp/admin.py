@@ -1,14 +1,21 @@
 from django.contrib import admin
-from .models import Client, Voiture, ModuleVoiture, agent
+from .models import Client, Voiture, ModuleVoiture, agent,Prices
 from .models import reservation, sous_traitance, historique_st,marquevehicule
 
 # Trip and it's Meta
 class ClientAdmin(admin.ModelAdmin):
     model = Client
+
 class marquevehiculeadmin(admin.ModelAdmin):
     model = marquevehicule
+
+class Pricesadmin(admin.TabularInline):
+    model = Prices
+
 class modulevehiculeAdmin(admin.ModelAdmin):
     model = ModuleVoiture
+    inlines =[Pricesadmin]
+
 class VoitureAdmin(admin.ModelAdmin):
     model = Voiture
 
