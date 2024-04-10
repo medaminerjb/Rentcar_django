@@ -5,9 +5,17 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext as _
 from django.utils.translation import get_language,activate,gettext
+from dashboardapp.models import Voiture,ModuleVoiture,reservation
+from django.http import JsonResponse
+import json
+from django.db.models import Count
+from django.template.loader import render_to_string
 
 
 
+def signupView(request):
+
+    return render(request,'rentcarapp/signup.html',{})
 
 def loginView(request):
     if request.user.is_authenticated:
@@ -35,11 +43,16 @@ def loginView(request):
     return render(request,'rentcarapp/login.html',{})
 @login_required
 def dashboard(request):
-    return render(request,'dashboardapp/dashboard.html')
+    voitures = Voiture.objects.filter()
+    return render(request,'dashboardapp/dashboard.html',{'voitures':voitures})
 @login_required
 def LogoutView(request):
     logout(request)
     return redirect('login')
 def home(request):
-     
-    return render(request,'rentcarapp/home.html')
+    modules = ModuleVoiture.objects.filter()
+    return render(request,'rentcarapp/home.html',{'modules':modules})
+def voitures_listing(request):
+    modules = Voiture.objects.values('modulevoiture').annotate(module_count=Count('modulevoiture'))
+
+    return render(request,'rentcarapp/voitures.html',{'modules':modules})

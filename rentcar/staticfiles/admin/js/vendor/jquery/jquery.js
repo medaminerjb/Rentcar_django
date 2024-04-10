@@ -6433,7 +6433,7 @@ function curCSS( elem, name, computed ) {
 
 		// Support: IE <=9 - 11+
 		// IE only supports `"float"` in `getPropertyValue`; in computed styles
-		// it's only available as `"{%"{% static rentcarappFloat"`. We no longer modify properties
+		// it's only available as `"cssFloat"`. We no longer modify properties
 		// sent to `.css()` apart from camelCasing, so we need to check both.
 		// Normally, this would create difference in behavior: if
 		// `getPropertyValue` returns an empty string, the value returned

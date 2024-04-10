@@ -3,6 +3,13 @@ from django.contrib.auth.models import User
 from django.conf import settings
 import uuid
 
+
+class marquevehicule(models.Model):
+    id_marque = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255,null=True)
+
+    def __str__(self) -> str:
+        return str(self.name)
 class ModuleVoiture(models.Model):
     id_module = models.AutoField(primary_key=True)
     name_module = models.CharField(max_length=255,null=False)
@@ -11,24 +18,26 @@ class ModuleVoiture(models.Model):
     nbr_place = models.IntegerField(null=True)
     reservoir = models.IntegerField(null=True)
     prix_neuf = models.IntegerField(null=True)
+    marque = models.ForeignKey(marquevehicule,blank=True,null=True,on_delete=models.CASCADE)
     etat = models.CharField(max_length=5,null=True,default='neuf')
     desponiblte = models.CharField(max_length=55,null=True)
+    type = models.CharField(max_length=63,null=True)
+
     created = models.DateTimeField(auto_now_add=True,null=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True,null=True, editable=False)
 
     def __str__(self) -> str:
-        return str(self.name_module)
+        return self.name_module
+    
 class Voiture(models.Model):
     id = models.AutoField(primary_key=True)
     numeroMat = models.CharField(max_length=127, unique=True)
-    modulecar = models.CharField(max_length=127,null=True)
     couleur = models.CharField(max_length=63,null=True)
-    type = models.CharField(max_length=63,null=True)
+    status =models.CharField(max_length=255,null=True)
     modulevoiture = models.ForeignKey(ModuleVoiture,blank=True,null=True,on_delete=models.CASCADE)
-    type = models.CharField(max_length=50,null=True)
 
-    def __str__(self):
-        return str(self.numeroMat)
+    def __str__(self) -> str:
+        return self.numeroMat
 class Client(models.Model):
     id_client = models.AutoField(primary_key=True)
     name = models.CharField(max_length=127,null=False)
