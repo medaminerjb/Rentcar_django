@@ -53,9 +53,6 @@ def home(request):
     modules = ModuleVoiture.objects.filter()
     return render(request,'rentcarapp/home.html',{'modules':modules})
 def voitures_listing(request):
-    modules = Voiture.objects.filter(status='libre').values('modulevoiture').annotate(module_count=Count('modulevoiture'))
-    cars_list = [{'module': car['modulevoiture'], 'count': car['module_count']} for car in modules]
-    json_data = json.dumps({'data': cars_list})
-    dats = render_to_string({'modules':json_data})
-    return JsonResponse(dats, safe=False)
+    modules = Voiture.objects.values('modulevoiture').annotate(module_count=Count('modulevoiture'))
+
     return render(request,'rentcarapp/voitures.html',{'modules':modules})
