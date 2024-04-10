@@ -5,7 +5,12 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext as _
 from django.utils.translation import get_language,activate,gettext
-from dashboardapp.models import Voiture
+from dashboardapp.models import Voiture,ModuleVoiture,reservation
+from django.http import JsonResponse
+import json
+from django.db.models import Count
+from django.template.loader import render_to_string
+
 
 
 def signupView(request):
@@ -45,8 +50,12 @@ def LogoutView(request):
     logout(request)
     return redirect('login')
 def home(request):
-    voitures = Voiture.objects.filter()
-    return render(request,'rentcarapp/home.html',{'voitures':voitures})
+    modules = ModuleVoiture.objects.filter()
+    return render(request,'rentcarapp/home.html',{'modules':modules})
 def voitures_listing(request):
-    voitures = Voiture.objects.filter()
-    return render(request,'rentcarapp/voitures.html',{'voitures':voitures})
+    modules = Voiture.objects.filter(status='libre').values('modulevoiture').annotate(module_count=Count('modulevoiture'))
+    cars_list = [{'module': car['modulevoiture'], 'count': car['module_count']} for car in modules]
+    json_data = json.dumps({'data': cars_list})
+    dats = render_to_string({'modules':json_data})
+    return JsonResponse(dats, safe=False)
+    return render(request,'rentcarapp/voitures.html',{'modules':modules})

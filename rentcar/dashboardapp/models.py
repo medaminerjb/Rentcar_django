@@ -21,6 +21,8 @@ class ModuleVoiture(models.Model):
     marque = models.ForeignKey(marquevehicule,blank=True,null=True,on_delete=models.CASCADE)
     etat = models.CharField(max_length=5,null=True,default='neuf')
     desponiblte = models.CharField(max_length=55,null=True)
+    type = models.CharField(max_length=63,null=True)
+
     created = models.DateTimeField(auto_now_add=True,null=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True,null=True, editable=False)
 
@@ -30,7 +32,7 @@ class Voiture(models.Model):
     id = models.AutoField(primary_key=True)
     numeroMat = models.CharField(max_length=127, unique=True)
     couleur = models.CharField(max_length=63,null=True)
-    type = models.CharField(max_length=63,null=True)
+    status =models.CharField(max_length=255,null=True)
     modulevoiture = models.ForeignKey(ModuleVoiture,blank=True,null=True,on_delete=models.CASCADE)
 
     def __str__(self):
