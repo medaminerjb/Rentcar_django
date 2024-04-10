@@ -27,7 +27,8 @@ class ModuleVoiture(models.Model):
     last_updated = models.DateTimeField(auto_now=True,null=True, editable=False)
 
     def __str__(self) -> str:
-        return str(self.name_module)
+        return self.name_module
+    
 class Voiture(models.Model):
     id = models.AutoField(primary_key=True)
     numeroMat = models.CharField(max_length=127, unique=True)
@@ -35,8 +36,8 @@ class Voiture(models.Model):
     status =models.CharField(max_length=255,null=True)
     modulevoiture = models.ForeignKey(ModuleVoiture,blank=True,null=True,on_delete=models.CASCADE)
 
-    def __str__(self):
-        return str(self.numeroMat)
+    def __str__(self) -> str:
+        return self.numeroMat
 class Client(models.Model):
     id_client = models.AutoField(primary_key=True)
     name = models.CharField(max_length=127,null=False)
