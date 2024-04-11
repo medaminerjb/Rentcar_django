@@ -95,7 +95,7 @@ def search_listing(request):
                 Q(start_date__lte=dateret, end_date__gte=dateret) |
                 Q(start_date__gte=datesor, end_date__lte=dateret)
                 )
-
+###fixes
     # If there are no overlapping reservations, add the car to available_cars
         if not reservations_overlap.exists():
             available_cars.append(car)

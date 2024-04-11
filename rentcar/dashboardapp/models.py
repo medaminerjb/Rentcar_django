@@ -14,7 +14,6 @@ class marquevehicule(models.Model):
 class ModuleVoiture(models.Model):
     id_module = models.AutoField(primary_key=True)
     name_module = models.CharField(max_length=255,null=False)
-    marque = models.CharField(max_length=63,null=True)
     puissance = models.IntegerField(null=True)
     nbr_place = models.IntegerField(null=True)
     reservoir = models.IntegerField(null=True)
@@ -35,7 +34,7 @@ class Voiture(models.Model):
     id = models.AutoField(primary_key=True)
     numeroMat = models.CharField(max_length=127, unique=True)
     couleur = models.CharField(max_length=63,null=True)
-    status =models.CharField(max_length=255,null=True)
+    status =models.CharField(max_length=255,null=True,default='nouveau')
     modulevoiture = models.ForeignKey(ModuleVoiture,blank=True,null=True,on_delete=models.CASCADE)
 
     def __str__(self) -> str:

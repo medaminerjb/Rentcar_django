@@ -1,0 +1,33 @@
+<head>
+
+</head>
+<body>
+    
+
+<table class="table-dark" border="5">
+    <th>
+        debut
+        </th>
+    <th >
+    fin
+    </th>
+   
+    <th>
+        voiture
+    </th>
+    {%for i in res%}
+    <tr>
+        <td>
+            {{i.date_debut}}
+            </td>
+    <td>
+        {{i.date_fin}}
+    
+    </td>
+   
+    <td>
+    {{i.voiture}}
+    </td></tr>
+    {% endfor %}
+    </table>
+</body>
