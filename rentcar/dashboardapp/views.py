@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .models import Voiture,reservation,ModuleVoiture,marquevehicule
+from .models import Voiture,reservation,ModuleVoiture,marquevehicule,sous_traitance
+from .models import agent
 from django.http import JsonResponse
 import json
 
@@ -55,7 +56,21 @@ def reservation_listing(request):
     res = reservation.objects.filter()
     #reservation_list = [{'id': reservation_list.id_reservation, 'matricule': reservation_list.place} for reservation_list in all_reservations]
     #json_return = json.dumps({'reservations':reservation_list})
+    if request.method =='POST':
+        reservatio= request.POST.get('reservation')
+        res = reservation.objects.get(id_reservation=reservatio)
+        res.status=request.POST.get('statu')
+        res.save()
     return render(request,'dashboardapp/reservations.html',{'res':res})
+def reservation_statu(request,reserv):
+    res = reservation.objects.get(id_reservatio=reserv)
+    if request.method == 'POST':
+        #if request.POST.get(''):
+        if request.method == 'POST':
+            res.status = request.POST.get('statu')
+            res.save()
+    return redirect('dashboard')
+
 ########## CRUD modules voitures 
 def modulesvoitures(request):
      
@@ -123,6 +138,73 @@ def deletemarque(request,marque):
     mar = marquevehicule.objects.get(id_marque=marque)
     mar.delete()
     return redirect('dashboard')
+#########################Sous Traitence 
+def add_soustraitence(request):
+        
+    if request.method == 'POST':    
+        taux_ech = request.POST.get('')        
+        number_ech = request.POST.get('')
+        number_echance_pa = request.POST.get('')
+        ava = request.POST.get('')
+        date_pai = request.POST.get('')
+        date_deb = request.POST.get('')
+        date_fi = request.POST.get('')
+        voit = request.POST.get('')
+        agen = request.POST.get('')
+        obj = sous_traitance(taux_echeance=taux_ech,number_echeance=number_ech
+                             ,number_echance_paier=number_echance_pa,avance=ava
+                             ,date_paiment=date_pai,date_debut=date_deb,date_fin=date_fi
+                             ,voiture=voit,agent=agen)
+        obj.save()
+
+
+def edit_soustraitance(request,sous):
+    so = sous_traitance.objects.get(id_sous_traitance=sous)
+    so.taux_echeance = request.POST.get('')        
+    so.number_echeance = request.POST.get('')
+    so.number_echance_paier = request.POST.get('')
+    so.avance = request.POST.get('')
+    so.date_paiment = request.POST.get('')
+    so.date_debut = request.POST.get('')
+    so.date_fin = request.POST.get('')
+    so.voiture = request.POST.get('')
+    so.agent = request.POST.get('')
+    so.save()
+    return redirect('dashboard')
+
+def soustraitence_listing(request):
+    sous = sous_traitance.objects.all()
+
+
+    return render(request,'dashboardapp/soustraitance.html',{'sous':sous})
+
+def his_st(request,soustraitence):
+    so = sous_traitance.objects.get(id_sous_traitance=soustraitence)
+
+    return render(request,'dashboard/historique.html',{'sous':so})
+##################agent part admin ############
+def add_agent(request):
+    if request.method == 'POST':
+
+        if request.POST.get('addagent'):
+            namea = request.POST.get('')
+            emaila = request.POST.get('')
+            numerotela = request.POST.get('')
+            usera = request.POST.get('user')
+            userf = User.objects.get(user=usera)
+            data = agent(name=namea,email=emaila,numerotel=numerotela,user=userf)
+            data.save()
+    return redirect('dashboard')
+
+def delete_agent(request,age):
+    agent_data = agent.objects.get(name=age)
+    agent_data.delete()
+    return redirect('dashboardapp')
+##############agent part agent 
+#def voitures_listing(request):
+
+        
+
 
         
 
