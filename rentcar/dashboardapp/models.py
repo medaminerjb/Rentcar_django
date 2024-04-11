@@ -3,6 +3,14 @@ from django.contrib.auth.models import User
 from django.conf import settings
 import uuid
 
+class agent(models.Model):
+    id_agent = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=127,null=False)
+    email = models.EmailField(null=True)
+    numerotel = models.IntegerField(null=True)
+    user= models.ForeignKey(User,blank=True,on_delete=models.CASCADE)
+    def __str__(self):
+        return str(self.name)
 
 class marquevehicule(models.Model):
     id_marque = models.AutoField(primary_key=True)
@@ -34,6 +42,7 @@ class Voiture(models.Model):
     id = models.AutoField(primary_key=True)
     numeroMat = models.CharField(max_length=127, unique=True)
     couleur = models.CharField(max_length=63,null=True)
+    agent = models.OneToOneField(agent,null=True,blank=True,on_delete=models.CASCADE)
     status =models.CharField(max_length=255,null=True,default='nouveau')
     modulevoiture = models.ForeignKey(ModuleVoiture,blank=True,null=True,on_delete=models.CASCADE)
 
@@ -56,14 +65,7 @@ class Client(models.Model):
 
     def __str__(self):
         return str(self.name)
-class agent(models.Model):
-    id_agent = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=127,null=False)
-    email = models.EmailField(null=True)
-    numerotel = models.IntegerField(null=True)
-    user= models.ForeignKey(User,blank=True,on_delete=models.CASCADE)
-    def __str__(self):
-        return str(self.name)
+
 
 class reservation(models.Model):
     id_reservation = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -73,7 +75,7 @@ class reservation(models.Model):
     
     date_fin = models.DateField(blank=True, null=True)
     date_reservation = models.DateField(blank=True, null=True)
-    client = models.ForeignKey(Client,blank=True,on_delete=models.CASCADE)
+    client = models.ForeignKey(Client,blank=True,null=True,on_delete=models.CASCADE)
     voiture = models.ForeignKey(Voiture,blank=True,on_delete=models.CASCADE)
     numero_tel = models.IntegerField(null=False)
 
